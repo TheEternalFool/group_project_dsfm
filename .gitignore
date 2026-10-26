@@ -1,0 +1,28 @@
+# Local Python environment and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Personal editor settings and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local credentials
+.env
+.env.*
+
+# Keep the data layout and documentation, not the datasets
+/data/**
+!/data/**/
+!/data/README.md
+!/data/**/.gitkeep
+
+# Generated report sites and rendering caches
+/reports/_site/
+/reports/.quarto/
