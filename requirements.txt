@@ -1,3 +1,0 @@
-# Installs the project package with its runtime, test and report dependencies.
-# Exact versions live in pyproject.toml; use:  pip install -r requirements.txt
--e .[dev,report]
