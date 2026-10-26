@@ -1,0 +1,33 @@
+# Introduction
+
+## Motivation
+
+[Why first names are a window on demographic change, and why the reliability
+of name-based inferences matters in practice (surveys, customer databases,
+research). Draw on the proposal, section 1.]
+
+## Research questions
+
+**Main question.** How have American first-name patterns evolved across time,
+geography and recorded sex categories, and what demographic information can
+names reliably convey?
+
+- **RQ1 Time.** What historical popularity patterns do American first names
+  follow, and how informative is a name's spelling about the period in which
+  it was popular? *Contribution: the temporal signal carried by a name.*
+- **RQ2 Place.** How distinctive are first-name distributions across US
+  states, and have regional naming preferences become more similar over time?
+  *Contribution: the geographic signal and whether it is fading.*
+- **RQ3 Recorded sex.** How have associations between first names and
+  SSA-recorded sex changed over time, and how reliably can these changes be
+  anticipated from historical naming patterns? *Contribution: the sex signal
+  and its stability* [@lieberson2000; @seguin2021].
+
+The report follows one thread: Time → Place → Recorded sex → What can names
+reliably reveal?
+
+## Scope
+
+The data are aggregate counts; conclusions are population-level associations,
+not statements about individuals, and SSA's binary sex category is not a
+measure of gender identity.

@@ -1,0 +1,28 @@
+# Data: raw and processed files are reproduced locally, never committed
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Quarto
+report/*.html
+report/*_files/
+report/.quarto/
+report/report.pdf
+report/report.docx
+/.quarto/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store

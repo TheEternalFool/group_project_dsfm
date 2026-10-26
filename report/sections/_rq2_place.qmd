@@ -1,0 +1,24 @@
+# RQ2 Place: state naming profiles and convergence
+
+**Question.** How distinctive are first-name distributions across US states, and have regional naming preferences become more similar over time?
+
+## Why it matters
+
+[Why this is interesting and how it feeds the main question.]
+
+## Variables and methods
+
+- **Variables:** State table: state, region, division, decade, count.
+- **Methods:** Diversity indices; TF-IDF over state-decade documents; Jensen–Shannon distance to the national distribution over time.
+
+## Evidence
+
+[Figures and tables computed from `src/names_project/` functions.]
+
+## What can and cannot be concluded
+
+[Population-level findings, uncertainty, limitations.]
+
+## Contribution to the main question
+
+[One paragraph.]
