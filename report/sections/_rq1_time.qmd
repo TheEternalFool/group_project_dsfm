@@ -1,0 +1,24 @@
+# RQ1 Time: popularity cycles and the spelling of a name
+
+**Question.** What historical popularity patterns do American first names follow, and how informative is a name's spelling about the period in which it was popular?
+
+## Why it matters
+
+[Why this is interesting and how it feeds the main question.]
+
+## Variables and methods
+
+- **Variables:** National table: year, per_million, trajectory features, character n-grams of name.
+- **Methods:** Trajectory features and clustering; ridge regression of mean year of birth on character n-grams, split by name, against a mean-year baseline.
+
+## Evidence
+
+[Figures and tables computed from `src/names_project/` functions.]
+
+## What can and cannot be concluded
+
+[Population-level findings, uncertainty, limitations.]
+
+## Contribution to the main question
+
+[One paragraph.]

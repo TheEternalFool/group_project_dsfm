@@ -1,0 +1,52 @@
+state,state_name,region,division
+CT,Connecticut,Northeast,New England
+ME,Maine,Northeast,New England
+MA,Massachusetts,Northeast,New England
+NH,New Hampshire,Northeast,New England
+RI,Rhode Island,Northeast,New England
+VT,Vermont,Northeast,New England
+NJ,New Jersey,Northeast,Middle Atlantic
+NY,New York,Northeast,Middle Atlantic
+PA,Pennsylvania,Northeast,Middle Atlantic
+IL,Illinois,Midwest,East North Central
+IN,Indiana,Midwest,East North Central
+MI,Michigan,Midwest,East North Central
+OH,Ohio,Midwest,East North Central
+WI,Wisconsin,Midwest,East North Central
+IA,Iowa,Midwest,West North Central
+KS,Kansas,Midwest,West North Central
+MN,Minnesota,Midwest,West North Central
+MO,Missouri,Midwest,West North Central
+NE,Nebraska,Midwest,West North Central
+ND,North Dakota,Midwest,West North Central
+SD,South Dakota,Midwest,West North Central
+DE,Delaware,South,South Atlantic
+DC,District of Columbia,South,South Atlantic
+FL,Florida,South,South Atlantic
+GA,Georgia,South,South Atlantic
+MD,Maryland,South,South Atlantic
+NC,North Carolina,South,South Atlantic
+SC,South Carolina,South,South Atlantic
+VA,Virginia,South,South Atlantic
+WV,West Virginia,South,South Atlantic
+AL,Alabama,South,East South Central
+KY,Kentucky,South,East South Central
+MS,Mississippi,South,East South Central
+TN,Tennessee,South,East South Central
+AR,Arkansas,South,West South Central
+LA,Louisiana,South,West South Central
+OK,Oklahoma,South,West South Central
+TX,Texas,South,West South Central
+AZ,Arizona,West,Mountain
+CO,Colorado,West,Mountain
+ID,Idaho,West,Mountain
+MT,Montana,West,Mountain
+NV,Nevada,West,Mountain
+NM,New Mexico,West,Mountain
+UT,Utah,West,Mountain
+WY,Wyoming,West,Mountain
+AK,Alaska,West,Pacific
+CA,California,West,Pacific
+HI,Hawaii,West,Pacific
+OR,Oregon,West,Pacific
+WA,Washington,West,Pacific

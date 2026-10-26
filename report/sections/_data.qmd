@@ -1,0 +1,48 @@
+# Data
+
+## Sources
+
+- National baby names, US Social Security Administration [@ssa_babynames]:
+  <https://www.ssa.gov/oact/babynames/names.zip>
+- State-level baby names: <https://www.ssa.gov/oact/babynames/state/namesbystate.zip>
+- Census regions and divisions [@census_regions], committed in `data/external/`.
+
+Data accessed: [date of the final download].
+
+## Acquisition and extraction
+
+[Summarise `scripts/download_data.py` and `scripts/build_dataset.py`: download,
+extraction, validation checks, normalisation. See `docs/methodology.md`.]
+
+## Description
+
+[Variable table by origin (original / external / engineered) and type
+(numerical, categorical, temporal, text). See `docs/data-dictionary.md`.]
+
+```{python}
+#| label: tbl-state-overview
+#| tbl-cap: "Overview of the processed state table (computed at render time)."
+if STATE_PATH.exists():
+    state = pd.read_parquet(STATE_PATH)
+    overview = pd.DataFrame(
+        {
+            "Statistic": ["Rows", "States", "Years", "Distinct names", "Published births", "Missing cells"],
+            "Value": [
+                f"{len(state):,}",
+                state["state"].nunique(),
+                f"{state['year'].min()}–{state['year'].max()}",
+                f"{state['name'].nunique():,}",
+                f"{state['count'].sum():,}",
+                int(state.isna().sum().sum()),
+            ],
+        }
+    )
+    display(overview.style.hide(axis="index"))
+else:
+    print("data/processed/state.parquet not found: run scripts/build_dataset.py")
+```
+
+## Data quality and limitations
+
+[Publication threshold (< 5 suppressed), early-cohort coverage, binary
+recorded sex, spelling variants. Use the figures in `docs/data-audit.md`.]

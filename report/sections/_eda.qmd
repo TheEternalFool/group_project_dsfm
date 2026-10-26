@@ -1,0 +1,25 @@
+# Exploratory data analysis
+
+[Overall patterns that motivate the three research questions.]
+
+```{python}
+#| label: fig-names-per-year
+#| fig-cap: "Distinct names published per year in the state file, by recorded sex. A name counts once per year and sex, whichever states it appears in."
+if STATE_PATH.exists():
+    import matplotlib.pyplot as plt
+
+    distinct = state.groupby(["year", "sex"], observed=True)["name"].nunique().unstack("sex")
+    fig, ax = plt.subplots()
+    for sex in ["F", "M"]:
+        ax.plot(distinct.index, distinct[sex], color=visualisation.SEX_COLOURS[sex],
+                label=visualisation.SEX_LABELS[sex])
+    ax.set_xlabel("Year of birth")
+    ax.set_ylabel("Distinct names (published)")
+    ax.legend()
+    plt.show()
+else:
+    print("data/processed/state.parquet not found: run scripts/build_dataset.py")
+```
+
+[Interpretation, remembering that suppression hides names with fewer than 5
+births per state and year.]
