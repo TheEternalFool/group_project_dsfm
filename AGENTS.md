@@ -70,8 +70,9 @@ repository. Read this before changing code, data handling or report text.
 
 ## Collaboration
 
-- Work on a feature branch and open a pull request into `main`
-  (see CONTRIBUTING.md). Never push directly to `main`.
+- The team uses a single branch, `main` (see CONTRIBUTING.md). Pull with
+  `--rebase` before working and before pushing; run `pytest` and
+  `ruff check .` before every push. Do not create long-lived branches.
 - Never delete or overwrite a teammate's work without examining it first.
 - Do not change repository visibility, permissions, branch protection or
   collaborators without the team's explicit approval.

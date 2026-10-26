@@ -84,7 +84,7 @@ quarto render report.qmd          # writes report/report.html
 ## Repository layout
 
 ```
-.github/            CI workflow and pull-request template
+.github/            CI workflow (tests on every push to main)
 data/raw/           downloaded SSA files (ignored by git)
 data/processed/     Parquet tables built by scripts/build_dataset.py (ignored)
 data/external/      small committed reference tables (Census regions)
@@ -98,7 +98,8 @@ report/             Quarto report (report.qmd + sections/, figures/, references.
 
 ## Working together
 
-Branches, commits, pull requests and reviews are described in
+We all work on the single `main` branch: pull, commit, pull again, push.
+The daily workflow, file ownership and conflict resolution are described in
 [CONTRIBUTING.md](CONTRIBUTING.md). Methodological safeguards that every
 contributor (human or AI assistant) should follow are in
 [AGENTS.md](AGENTS.md).

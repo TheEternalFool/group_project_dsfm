@@ -1,7 +1,6 @@
 # Contributing
 
-A short guide for the four of us. When in doubt, open a pull request early
-and ask in its comments.
+A short guide for the four of us. Everything lives on one branch, `main`.
 
 ## 1. First-time setup
 
@@ -16,75 +15,65 @@ python scripts/download_data.py && python scripts/build_dataset.py
 
 See the README for the HTTP 403 workaround if SSA blocks the download.
 
-## 2. Branches
-
-`main` always holds reviewed work. Never commit to it directly.
-
-| Branch | Owner area |
-|---|---|
-| `feature/data-pipeline` | download, cleaning, data dictionary, audit |
-| `feature/rq1-time` | RQ1 notebook, features and report section |
-| `feature/rq2-place` | RQ2 notebook, features and report section |
-| `feature/rq3-sex` | RQ3 notebook, features and report section |
-| `feature/quarto-report` | report skeleton, introduction, conclusion, styling |
-
-For smaller pieces use `feature/<area>-<short-description>` or
-`fix/<short-description>`.
+## 2. Daily workflow (single `main` branch)
 
 ```bash
-git switch main && git pull
-git switch -c feature/rq1-time       # or: git switch feature/rq1-time
-```
-
-## 3. Commits
-
-- Commit small, coherent steps with a message in the imperative:
-  `Add female-share trajectory plot`, `Fix rank ties in add_popularity`.
-- Never commit data files, rendered HTML or notebook outputs with large
-  embedded images. Clear notebook outputs before committing
-  (Jupyter: *Edit → Clear All Outputs*).
-- Run `pytest` and `ruff check .` before pushing.
-
-## 4. Pull requests
-
-```bash
-git push -u origin feature/rq1-time
-```
-
-Then open a PR into `main` on GitHub. Fill in the template: what changed,
-how it was checked, and any methodological decision reviewers should look at.
-Keep PRs focused; several small PRs are easier to review than one big one.
-
-## 5. Reviews
-
-- Every PR needs **one approving review from another student** before merging.
-- Reviewers check: does the code run and the CI pass; are the statistics
-  sound (normalisation, leakage, baselines, uncertainty); does the text claim
-  only what the evidence supports (see AGENTS.md).
-- Use *Squash and merge* to keep `main` readable, then delete the branch.
-
-## 6. Keeping up to date and resolving conflicts
-
-```bash
-git switch main && git pull
-git switch feature/rq1-time
-git merge main                 # bring your branch up to date
-```
-
-If Git reports a conflict, open each listed file, keep the correct parts
-between `<<<<<<<`, `=======` and `>>>>>>>`, delete the markers, then:
-
-```bash
-git add <file>
-git commit                     # completes the merge
-pytest                         # make sure nothing broke
+git pull --rebase                 # always start from the latest main
+# ... work ...
+pytest && ruff check .            # must pass before pushing
+git add <files>
+git commit -m "Add female-share trajectory plot"
+git pull --rebase                 # pick up teammates' commits again
 git push
 ```
 
-Conflicts in `.ipynb` files are painful; avoid two people editing the same
-notebook, and move reusable code into `src/names_project/` early. Each
-report section lives in its own file under `report/sections/` for the same
-reason.
+- Pull before you start and again just before you push.
+- Commit small, coherent steps with a message in the imperative
+  (`Fix rank ties in add_popularity`). Push often so others see your work.
+- GitHub Actions runs the tests on every push to `main`; if the badge turns
+  red, fix it before doing anything else.
+
+## 3. Who works where
+
+To keep conflicts rare, each person owns separate files:
+
+| Area | Files |
+|---|---|
+| Data pipeline | `src/names_project/data.py`, `preprocessing.py`, `scripts/`, `docs/data-*.md` |
+| RQ1 Time | `notebooks/01_time.ipynb`, `report/sections/_rq1_time.qmd` |
+| RQ2 Place | `notebooks/02_place.ipynb`, `report/sections/_rq2_place.qmd` |
+| RQ3 Recorded sex | `notebooks/03_sex.ipynb`, `report/sections/_rq3_sex.qmd` |
+| Report | `report/report.qmd`, `_introduction.qmd`, `_data.qmd`, `_eda.qmd`, `_conclusion.qmd` |
+
+Shared modules (`features.py`, `modelling.py`, `visualisation.py`): add new
+functions rather than changing existing ones, and tell the group when you
+change a function someone else uses.
+
+## 4. What never goes in a commit
+
+- Data files (`data/raw/`, `data/processed/` are ignored by git).
+- Rendered HTML and notebook outputs with large images. Clear notebook outputs
+  before committing (Jupyter: *Edit → Clear All Outputs*).
+
+## 5. Reviewing each other's work
+
+There are no pull requests, so review happens after the push: skim the new
+commits on GitHub (*Commits* tab) for your area's neighbours, and check the
+statistics (normalisation, leakage, baselines, uncertainty) and wording
+against AGENTS.md. Raise problems in the group chat or as a GitHub issue.
+
+## 6. Resolving conflicts
+
+If `git pull --rebase` reports a conflict:
+
+1. Open each listed file and keep the correct parts between `<<<<<<<`,
+   `=======` and `>>>>>>>`; delete the markers.
+2. `git add <file>` then `git rebase --continue`.
+3. Run `pytest`, then `git push`.
+
+Stuck? `git rebase --abort` returns you to where you were. Conflicts in
+`.ipynb` files are painful: avoid two people editing the same notebook, and
+move reusable code into `src/names_project/` early.
 
 ## 7. Where code goes
 
