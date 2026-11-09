@@ -2,6 +2,9 @@
 
 - [project_proposal.pdf](project_proposal.pdf): the group's original proposal,
   moved from `project_files/` without changing its contents.
+- [project_requirements.md](project_requirements.md): submission formats, milestones and dataset recommendations.
+- [data_dictionary.md](data_dictionary.md): expected SSA fields, units and interpretation rules.
+- [data_audit.md](data_audit.md): actual acquisition/audit status and the next steps needed.
 - [archive/](archive/): the original PyCharm example, retained for reference.
 
 Store course instructions and notes explaining preparation decisions here when

@@ -32,7 +32,7 @@ These are planned analyses. We will justify assumptions, compare meaningful base
 
 We will download and extract the official ZIP archives, preserve their READMEs, and read the comma-separated files with explicit column names and types in pandas. No scraping or API is needed. Source URLs, access dates and checksums will identify each release.
 
-The fields cover **text** (`name`), **categorical** (`sex`, `state`), **temporal** (`year`, stored as an integer) and **numerical** (`count`) variables. National data have four analytical fields including the filename-derived year; state data have five. Derived shares, ranks, female shares, decades and spelling features will serve specific research questions, rather than simply increase the number of columns.
+The fields cover **text** (`name`), **categorical** (`sex`, `state`), **temporal** (`year`, stored as an integer) and **numerical** (`count`) variables. National data have four analytical fields including the filename-derived year; state data have five. See the [data dictionary](docs/data_dictionary.md). Derived shares, ranks, female shares, decades and spelling features will serve specific research questions, rather than simply increase the number of columns.
 
 SSA counts originate from Social Security card applications, not a complete census of births. Every proportion will state its denominator: a share of published SSA counts is not automatically a share of all births. See the [publication limits](https://www.ssa.gov/oact/babynames/limits.html), [data qualifications](https://www.ssa.gov/oact/babynames/background.html) and [project data guide](data/README.md).
 
@@ -44,17 +44,19 @@ This is the timetable in the submitted proposal; scheduled dates do not establis
 |---|---|---|
 | **1. Acquire and prepare** | 20 Oct–2 Nov | Verified sources, data dictionary, quality audit and reproducible prepared data |
 | **2. Explore** | 3–15 Nov | Descriptive statistics, focused figures and preliminary interpretations |
-| **Project update** | **16 Nov** | Quarto HTML report of preparation and EDA actually completed |
+| **Project update** | **16 Nov** | `update_AJ.html` (preferably Quarto), or PDF with separate code; preparation, initial analysis and preliminary findings |
 | **3. Analyse and model** | 17 Nov–5 Dec | Justified methods, validation and robustness checks |
 | **4. Interpret and write** | 6–14 Dec | Integrated findings, discussion and limitations |
 | **5. Review and present** | 15–20 Dec | Reproducibility checks, slides and a video of at most ten minutes |
-| **Final submission** | **21 Dec** | Final Quarto/HTML report and presentation video |
+| **Final submission** | **21 Dec** | `final_AJ.qmd` and `final_AJ.html` with code hidden but available; slides and a public Google Drive video link |
+
+The project contributes **70% of the total course grade**: proposal 10%, update 10%, video 25%, final report 25%. See the [course requirements](docs/project_requirements.md) for submission formats, dataset recommendations and grading details.
 
 The proposed roles are one lead for preparation/report integration and one for each research dimension, with joint review of methods and conclusions. The group will agree individual assignments.
 
 ## Current status and Phase 1 completion
 
-**Checked on 9 November 2026:** GitHub contains the structure, requirements, proposal and environment-check notebook. The setup record documents 51 local state files. Acquisition provenance, a preparation notebook and audit results are not yet documented in the shared repository.
+**Checked on 9 November 2026:** the acquisition-and-audit notebook, expected-schema dictionary and course requirements are available. The setup record documents 51 local state files, but automated SSA downloads returned HTTP 403 and the local data were inaccessible to this session. **No real-data audit has been completed.** Start with [notebook 01](notebooks/01_data_acquisition_and_audit.ipynb) and read the [audit status](docs/data_audit.md); the checklist below remains open.
 
 Before EDA on the relevant dataset, complete and document:
 
@@ -106,6 +108,6 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m jupyterlab
 ```
 
-Open `notebooks/00_setup.ipynb` to check the environment and paths; it does not validate data. A fresh clone has no datasets: see the [data guide](data/README.md). Current direct dependencies are pandas and JupyterLab; add visualisation/modelling libraries when needed. Direct versions are pinned, but this is not a full environment lock.
+Open `notebooks/00_setup.ipynb` to check the environment and paths, then `notebooks/01_data_acquisition_and_audit.ipynb` for the first Phase 1 task. A fresh clone has no datasets: see the [data guide](data/README.md). Current direct dependencies are pandas and JupyterLab; add visualisation/modelling libraries when needed. Direct versions are pinned, but this is not a full environment lock.
 
 Work on short task branches from up-to-date `main`, agree notebook ownership, and review small commits together before merging. Keep raw data unchanged and exclude datasets, `.venv` and personal settings from commits. Restart and run notebooks in order before sharing; see the [notebook guide](notebooks/README.md).
