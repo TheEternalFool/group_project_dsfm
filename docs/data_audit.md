@@ -1,6 +1,8 @@
 # Phase 1 acquisition and audit status
 
-**Status: 9 November 2026 — real-data audit not completed.**
+**Historical status: 9 November 2026 — this acquisition notebook's real-data audit was not completed.**
+
+The notes below preserve that session's results. By **14 November 2026**, the separate [state preparation](../notebooks/01_state_preparation.ipynb) and [EDA](../notebooks/02_state_eda.ipynb) notebooks had passed on the local state data. See the [current project status](../README.md#current-status-and-phase-1-completion) for verified counts and checks. The original acquisition provenance, national data and regional lookup remain unresolved.
 
 ## What is available
 

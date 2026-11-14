@@ -1,0 +1,270 @@
+---
+title: "What's in a Name?"
+subtitle: "Time, Place and Recorded Sex in American First Names"
+author: "Group AJ · HEC Lausanne"
+date: "2026-11-11"
+date-format: "D MMMM YYYY"
+toc-location: right
+abstract-title: "Abstract"
+pagetitle: "What's in a Name? | Group AJ Project Update"
+lang: en
+format:
+  html:
+    theme: default
+    css: report.css
+    toc: true
+    toc-title: "Contents"
+    toc-depth: 1
+    number-sections: true
+    number-depth: 2
+    self-contained: true
+    code-fold: true
+    code-tools: false
+    code-overflow: wrap
+    echo: true
+    anchor-sections: false
+    grid:
+      body-width: 800px
+      margin-width: 180px
+      sidebar-width: 20px
+      gutter-width: 2rem
+execute:
+  error: false
+  warning: false
+abstract: |
+  We examine changes in American first names across time, states and recorded
+  sex categories using Social Security Administration data. This update
+  presents the preparation of 6,696,687 aggregate records covering 1910–2025
+  and an initial descriptive analysis. Between 1950 and 2025, the median
+  state's top-ten name share fell from 28.0% to 9.6% for female records and
+  from 36.3% to 10.5% for male records. We also compare state distributions
+  and selected name–sex trajectories in California. Rare-name suppression
+  and incomplete historical coverage limit interpretation. National data,
+  trajectory clustering and predictive models remain to be incorporated.
+---
+
+# Introduction
+
+## Goals and research questions
+
+We study how naming preferences change across generations and places,
+and assess the limits of using a name as a demographic proxy. Three questions
+organise the analysis.
+
+1. Do names follow identifiable popularity life cycles, and does spelling
+   help explain when they were popular?
+2. Do states have distinctive naming profiles, and have those profiles
+   become more similar over time?
+3. How stable are name–sex associations, and can earlier spelling and
+   popularity information help anticipate later changes?
+
+These questions concern aggregate associations. A name cannot establish an
+individual's sex or gender, and the data do not identify why parents chose it.
+
+## Refinement of the proposal
+
+The proposal planned national coverage from 1880 and state coverage from 1910.
+For this update, we use the local 1910–2025 state snapshot only; the national
+archive has not been acquired. Pooled state results are therefore labelled as
+such and are not presented as official national totals. We retain the original
+research questions, while separating the descriptive evidence available now
+from the clustering and predictive modelling planned for the final report.
+
+# Data
+
+## Sources and observation unit
+
+The local files correspond to the SSA state-name format, whose official
+distribution is the [state archive](https://www.ssa.gov/oact/babynames/state/namesbystate.zip).
+One row records a state × recorded sex × birth year × name count. It is an
+aggregate record, not an individual birth or an independent survey response.
+
+SSA derives its name statistics from Social Security card applications.
+Historical coverage is incomplete, particularly before 1937. The agency also
+notes possible recording errors and treats different spellings separately.
+Consequently, these data should not be described as a complete birth census.
+See the [SSA background and qualifications](https://www.ssa.gov/oact/babynames/background.html).
+
+The original download date and exact release of
+the local files remain undocumented. Checksums identify our snapshot;
+matching it to an official release remains necessary. Checking the SSA
+documentation on 11 November 2026 does not establish the acquisition date.
+
+| Variable | Meaning | Type |
+|---|---|---|
+| `state` | State abbreviation, including DC | Categorical |
+| `sex` | Recorded `F` or `M` category | Categorical |
+| `year` | Birth year | Integer, temporal |
+| `name` | Published first-name spelling | Text |
+| `count` | Published count for that combination | Positive integer |
+
+## Data wrangling and preprocessing
+
+The preparation converts 51 source files into one validated analysis table.
+It retains all 6,696,687 rows, with no missing field values or duplicate
+keys and no changes to the raw files. The main steps were:
+
+1. Concatenate the state files with explicit column types, preserving literal
+   name strings and checking blank values separately.
+2. Check file hashes, keys, codes, years, counts and state–sex–year coverage.
+   Retain 1,811 records with placeholder-like labels as review flags rather
+   than treating them as proven errors.
+3. Derive temporal, spelling and popularity measures, with shares and ranks
+   calculated within state–sex–year groups.
+4. Export the prepared table, reload it and compare it with the in-memory
+   result. Verify that original field values and raw-file hashes are unchanged.
+
+The four derived features have explicit analytical roles:
+
+| Derived field | Transformation | Purpose |
+|---|---|---|
+| `decade` | Round birth year down to the decade | Compare historical periods |
+| `name_length` | Number of characters in the published spelling | Describe spelling patterns |
+| `published_share` | Count ÷ total published count in the state–sex–year group | Compare relative popularity across different-sized groups |
+| `rank` | Descending count within the group; alphabetical tie-break | Identify leading names and top-ten concentration |
+
+The prepared table has nine columns: five source fields and four derived
+fields. It contains four numeric measures
+(`count`, `name_length`, `published_share`, `rank`), two categorical fields
+(`state`, `sex`), two temporal fields stored as integers (`year`, `decade`)
+and one text field (`name`). This falls within the course's recommended
+8–12-variable range and exceeds 1,000 rows. Derived fields support the
+research questions; they do not add independent source information, and
+the large row count alone does not establish statistical significance.
+
+The EDA then aggregates and reshapes the prepared data: grouping by
+state, year and recorded sex for concentration measures, summarising state
+distributions by year, and pivoting paired female/male counts for the
+California examples. A name–year is eligible for those examples only when
+both counts are published and their sum is at least 100. Missing pairs
+remain missing; they are not imputed as zero.
+
+<details class="audit-details">
+<summary>View the complete audit and transformation checks</summary>
+
+<!-- Generated from verified notebook outputs; do not replace with assumed results. -->
+{{< include _preparation_results.md >}}
+
+</details>
+
+## Challenges and interpretation rules
+
+The SSA suppresses rare entries for privacy, so an absent record cannot be
+assumed to represent zero births. Suppression also means that adding state
+counts does not necessarily reproduce a national count.
+[SSA publication limits](https://www.ssa.gov/oact/babynames/limits.html)
+and [data qualifications](https://www.ssa.gov/oact/babynames/background.html)
+describe these restrictions.
+
+Our shares use published counts within the stated geography, year and
+recorded-sex group as their denominator. They are not shares of all births.
+Where an opposite-sex
+record is absent, we do not automatically assign a female share of 0 or 1.
+All name–sex comparisons must state how records were selected and how
+suppression affects the interpretation.
+
+# Exploratory Data Analysis (EDA)
+
+We first examine concentration over time, then compare states and selected
+name–sex trajectories. These descriptive comparisons guide the subsequent
+modelling; they do not establish causal effects.
+
+<!-- EDA text is maintained from notebook outputs; review after rerunning the analysis. -->
+{{< include _update_results.md >}}
+
+# Analysis
+
+## Preliminary methods and rationale
+
+The methods below are planned and have not yet been fitted. They extend the
+descriptive comparisons without treating every aggregate row as an
+independent observation.
+
+### Trajectory clustering {.unnumbered}
+
+We will cluster normalised name-popularity trajectories over a common period
+to compare their shape rather than raw size. Minimum-information rules will
+be specified, with sensitivity checks for suppression, normalisation and
+the number of clusters.
+
+### Regularised regression {.unnumbered}
+
+Character n-grams will be used to predict count-weighted mean birth year.
+This describes a name's aggregate popularity period, not an individual's
+birth year. We will measure mean absolute error on held-out names against
+a training-mean baseline, keeping each spelling in one split.
+
+### State profiles and similarity {.unnumbered}
+
+State–decade profiles will be constructed within recorded-sex groups.
+TF-IDF downweights names common across states to identify distinctive names.
+We will compare matched periods and label pooled-state references explicitly.
+A leave-one-state-out reference can avoid including a state in its own
+benchmark.
+
+### Predicting name–sex shifts {.unnumbered}
+
+After defining a meaningful shift, we will test whether earlier spelling
+and popularity information predict it. Evaluation will use later periods
+and compare performance with majority-class and persistence baselines.
+Count and shift thresholds will be set before fitting, with explicit
+treatment of absent or suppressed opposite-sex records.
+
+For predictive models, preprocessing and feature selection will be fitted on
+training data only. Name-grouped splits will test generalisation to unseen
+spellings; forward time splits will test claims about future changes. These
+are different targets and will be reported separately. Threshold and period
+sensitivity will be assessed before making substantive claims.
+
+## Findings, scope and limitations
+
+The main limitations are unresolved file provenance, suppression, incomplete
+early coverage, recorded-sex coding and the missing national archive. The
+models will need to respect these constraints rather than treat unavailable
+counts as fully observed data. The current findings are descriptive; we do
+not attach significance tests to millions of dependent aggregate records.
+
+# Conclusion
+
+The audit and reproducible preparation retained all 6,696,687 records without
+altering the raw files. The initial EDA shows a substantial fall in top-ten
+name concentration since 1950 in both recorded-sex categories, alongside
+differences between states and contrasting trajectories among selected
+California names. This is consistent with a less concentrated published
+name distribution. Clustering and predictive analyses remain future work.
+
+For the final report, we will first resolve file provenance and obtain the
+national archive. We will then check the descriptive findings across
+alternative comparison periods and count thresholds, before fitting the
+proposed models using the stated baselines and validation splits.
+
+# References {.unnumbered}
+
+- US Social Security Administration.
+  [Beyond the Top 1000 Names](https://www.ssa.gov/oact/babynames/limits.html).
+  Publication restrictions and links to official downloadable archives.
+  Accessed 11 November 2026.
+- US Social Security Administration.
+  [Background information for popular names](https://www.ssa.gov/oact/babynames/background.html).
+  Source population, coverage and data qualifications. Accessed 11 November 2026.
+- Elwin Freudiger.
+  [Course project template](https://github.com/Elwin-Freudiger/project-template).
+  Report structure and Quarto formatting, adapted for this update.
+  Accessed 11 November 2026.
+
+# Reproducibility {.unnumbered}
+
+The analysis uses Python 3.12, pandas 2.3.3 and Matplotlib 3.11.2, with direct
+dependencies pinned in `requirements.txt`. Run
+`notebooks/01_state_preparation.ipynb`, then `notebooks/02_state_eda.ipynb`
+in the project environment. The first notebook verifies input hashes and
+reloads its export; the second reads the prepared data and generates the
+figures and CSV tables used here. Their saved cells contain
+the commented code and execution outputs.
+
+Render the report from the repository root with
+`quarto render reports/update_AJ.qmd`. The source includes a generated
+preparation summary, manually maintained EDA text and notebook figures in
+`reports/`. Check report values against new notebook outputs before rendering.
+The HTML embeds the figures for standalone viewing. Raw and processed datasets
+remain local.

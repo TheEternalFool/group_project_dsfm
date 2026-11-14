@@ -27,7 +27,9 @@ An empty cell in a published row is different from an absent name–sex–year c
 
 A state sum can be smaller than the national count because publication suppression operates at different geographical levels. Archive and per-file checksums identify the inspected snapshot; they do not prove it is the latest release.
 
-## Candidate derived variables — not yet implemented
+## Candidate derived variables — decisions at 9 November
+
+The table records the original planning questions. The [state preparation notebook](../notebooks/01_state_preparation.ipynb) now implements decade, name length, within-state–sex–year published share and rank with alphabetical tie-breaking; the [EDA notebook](../notebooks/02_state_eda.ipynb) defines female shares for selected names. Character-based models and the Census lookup remain planned.
 
 | Candidate | Purpose | Decision needed before calculation |
 |---|---|---|
