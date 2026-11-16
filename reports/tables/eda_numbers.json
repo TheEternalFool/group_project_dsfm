@@ -1,0 +1,206 @@
+{
+  "concentration": {
+    "1950": {
+      "F": 0.27981949458483757,
+      "M": 0.36308445782210547
+    },
+    "1980": {
+      "F": 0.22186528497409327,
+      "M": 0.27234068778503634
+    },
+    "2025": {
+      "F": 0.0962112783275751,
+      "M": 0.10544117252301828
+    }
+  },
+  "life_cycles": {
+    "name_sex_series": 815,
+    "curve_window": [
+      -20,
+      20
+    ],
+    "duration_window": [
+      1880,
+      2025
+    ],
+    "maximum_hidden_relative_upper": 0.04379634690660294,
+    "durations_affected_by_bounds": 0,
+    "median_years_by_peak_decade": {
+      "1900": 44.5,
+      "1910": 45.0,
+      "1920": 30.0,
+      "1930": 28.0,
+      "1940": 27.5,
+      "1950": 23.0,
+      "1960": 20.0,
+      "1970": 17.0,
+      "1980": 21.5,
+      "1990": 17.0,
+      "2000": 22.5
+    },
+    "pooled_era_medians": [
+      {
+        "peak_era": "1900\u201324",
+        "names": 127,
+        "median_years_half_lower": 43.0,
+        "median_years_half_upper": 43.0
+      },
+      {
+        "peak_era": "1925\u201349",
+        "names": 136,
+        "median_years_half_lower": 28.0,
+        "median_years_half_upper": 28.0
+      },
+      {
+        "peak_era": "1950\u201374",
+        "names": 220,
+        "median_years_half_lower": 20.0,
+        "median_years_half_upper": 20.0
+      },
+      {
+        "peak_era": "1975\u20132005",
+        "names": 332,
+        "median_years_half_lower": 19.0,
+        "median_years_half_upper": 19.0
+      }
+    ]
+  },
+  "endings": {
+    "decade_method": "pooled published counts",
+    "selected_letters": {
+      "F": {
+        "a": {
+          "1940s": 0.3131192859176512,
+          "2000s": 0.3851415329082528
+        },
+        "e": {
+          "1940s": 0.22886761237344344,
+          "2000s": 0.17568778811015434
+        },
+        "y": {
+          "1940s": 0.15807774866225544,
+          "2000s": 0.12425813825520493
+        },
+        "h": {
+          "1940s": 0.0394293946742067,
+          "2000s": 0.06938641551878134
+        }
+      },
+      "M": {
+        "n": {
+          "1940s": 0.13397267133015384,
+          "2000s": 0.34131278375190044
+        },
+        "d": {
+          "1940s": 0.1605387221762122,
+          "2000s": 0.02677586399778081
+        },
+        "s": {
+          "1940s": 0.1391311812829263,
+          "2000s": 0.07029655009090732
+        },
+        "y": {
+          "1940s": 0.1313872364059116,
+          "2000s": 0.06447924316694638
+        }
+      }
+    }
+  },
+  "divergence": {
+    "draws_per_state_sex_year": 30,
+    "seed": 2026,
+    "observations": 2448,
+    "summary_unit": "median across 102 state-sex observations",
+    "peak_before1945_year": 1930,
+    "peak_before1945": 0.061970668664842465,
+    "minimum_after1945_year": 1985,
+    "minimum_after1945": 0.024946198100683492,
+    "adjusted_2025": 0.02928668448301228,
+    "baseline_2025": 0.008609929268061863,
+    "size_rank_correlation_2025": 0.15628959276018098,
+    "concentration_size_rank_correlation_2025": -0.8279638009049772,
+    "highest_states_2025": [
+      "MS",
+      "NJ",
+      "HI",
+      "NY",
+      "CA"
+    ],
+    "lowest_states_2025": [
+      "DE",
+      "RI",
+      "CO"
+    ],
+    "adjusted_1940": 0.05659754791646113,
+    "decline_1940_1985": 0.5592353552577141
+  },
+  "distinctive_names": {
+    "period": [
+      2016,
+      2025
+    ],
+    "minimum_state_count": 200,
+    "median_relative_share": 4.2768935161685375
+  },
+  "name_sex": {
+    "cohort_names": 1875,
+    "male_to_female": 28,
+    "female_to_male": 2,
+    "male_to_female_names": [
+      "Kelly",
+      "Taylor",
+      "Leslie",
+      "Morgan",
+      "Riley",
+      "Avery",
+      "Sydney",
+      "Lindsey",
+      "Shelby",
+      "Aubrey",
+      "Addison",
+      "Skylar",
+      "Kendall",
+      "Kennedy",
+      "Quinn",
+      "Harley",
+      "Reese",
+      "Emery",
+      "Blair",
+      "Charley",
+      "Stevie",
+      "Emory",
+      "Monroe",
+      "Mckinley",
+      "Leighton",
+      "Palmer",
+      "Scottie",
+      "Austyn"
+    ],
+    "female_to_male_names": [
+      "Elisha",
+      "Santana"
+    ],
+    "shared_1985_lower": 0.017858313640818618,
+    "shared_1985_upper": 0.04300374498674433,
+    "shared_2025_lower": 0.05795689918056744,
+    "shared_2025_upper": 0.09945909065819132,
+    "shared_peak_year": 2022,
+    "shared_peak_lower": 0.06409866812909924,
+    "same_predominant_category": 1723,
+    "same_predominant_fraction": 0.9189333333333334,
+    "trajectory_names": [
+      "Kelly",
+      "Taylor",
+      "Leslie",
+      "Morgan",
+      "Riley",
+      "Avery",
+      "Elisha",
+      "Santana"
+    ]
+  },
+  "concentration_timings": {
+    "female_local_low_1950_1970": 1964,
+    "gap_under_one_point_since": 2003
+  }
+}

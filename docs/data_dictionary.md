@@ -1,43 +1,85 @@
-# SSA data dictionary — Phase 1
+# Data dictionary
 
-This dictionary describes the expected SSA schemas. It is not evidence that the group's files have passed validation. Source documentation: [publication limits](https://www.ssa.gov/oact/babynames/limits.html) and [data qualifications](https://www.ssa.gov/oact/babynames/background.html), consulted on 9 November 2026. Preserve the README supplied in each archive as the release-specific reference.
+The study uses the [SSA national](https://www.ssa.gov/oact/babynames/names.zip)
+and [state](https://www.ssa.gov/oact/babynames/state/namesbystate.zip) datasets.
+Rows are published aggregate counts from Social Security applications, not
+individual children or a complete census of births.
 
-## Observation units and keys
+## Source fields and observation units
 
-- **National:** one published count for a `(year, sex, name)` combination. Each `yobYYYY.txt` file supplies `name, sex, count`; extract `year` from its filename.
-- **State:** one published count for a `(state, year, sex, name)` combination. Each state text file supplies `state, sex, year, name, count`.
+National files contain `name, sex, count`, with `year` derived from
+`yobYYYY.txt`. State files contain `state, sex, year, name, count`.
+The unique keys are `(year, sex, name)` nationally and
+`(state, year, sex, name)` by state.
 
-Rows are aggregate groups, not individual children. National and state data are two levels of aggregation; do not concatenate them as independent observations or add their counts together. The state coverage includes DC; national data exclude US territories.
-
-| Field | Variable type | Intended representation after validation | Meaning and checks |
-|---|---|---|---|
-| `name` | Text | String | Published first-name spelling. Preserve strings and spelling variants; explicitly detect empty/whitespace values. Disable pandas' default missing-value string conversion when loading. |
-| `sex` | Categorical | String/category | SSA's recorded `F` or `M` category. It is not a verified statement of a person's gender identity. Flag other values. |
-| `year` | Temporal | Integer year | Birth cohort, not application or download year. National: filename-derived; state: explicit field. Check observed coverage against the intended period. Do not invent month/day values. |
-| `count` | Numerical, discrete | Integer | Published count for the complete group key, drawn from Social Security applications. Investigate missing/noninteger values and values below the publication threshold of five. |
-| `state` | Categorical | String/category | State of birth or DC; state data only. Validate allowed codes and consistency with the filename. |
-
-There are **four analytical fields nationally** and **five by state**. Dictionary metadata, file paths and checksums are provenance, not extra substantive variables for the course column recommendation.
-
-SSA removes hyphens and spaces before publication. Spelling and length features therefore describe the published name string, which may differ from the spelling on the original application. Keep distinct published spellings separate.
-
-## Missingness and interpretation
-
-An empty cell in a published row is different from an absent name–sex–year combination. An absent combination may be suppressed or unrecorded; do not automatically replace it with zero. Zero missing cells in the files does not establish complete population coverage. Early cohorts are incompletely represented, and spelling/recording limitations remain even when structural checks pass.
-
-A state sum can be smaller than the national count because publication suppression operates at different geographical levels. Archive and per-file checksums identify the inspected snapshot; they do not prove it is the latest release.
-
-## Candidate derived variables — decisions at 9 November
-
-The table records the original planning questions. The [state preparation notebook](../notebooks/01_state_preparation.ipynb) now implements decade, name length, within-state–sex–year published share and rank with alphabetical tie-breaking; the [EDA notebook](../notebooks/02_state_eda.ipynb) defines female shares for selected names. Character-based models and the Census lookup remain planned.
-
-| Candidate | Purpose | Decision needed before calculation |
+| Field | Type | Meaning |
 |---|---|---|
-| Published popularity share | Compare name popularity across differently sized cohorts/places | Specify the year/sex/geography denominator and label it as a share of published counts, not all births. |
-| Popularity rank | Compare relative positions | Define grouping and tie handling. |
-| Female share | Track recorded-sex association for a name/cohort | Define how suppressed or absent components are handled; do not assume a missing component is zero. |
-| Name length / character features | Investigate spelling and popularity period | Preserve the published spelling; learn any model vocabulary from training data only. |
-| Decade | Group cohorts for later comparisons | Define decade boundaries and partial decades. |
-| Census region and division | Regional comparisons | Source the lookup and validate a many-to-one join including DC. |
+| `name` | Text | Published spelling; variants remain distinct. |
+| `sex` | Category | Recorded `F` or `M`; not an inferred gender identity. |
+| `year` | Integer / temporal | Birth year: 1880–2025 nationally, 1910–2025 by state. |
+| `count` | Integer | Published frequency for the complete key; at least five. |
+| `state` | Category | State of birth, including DC; state table only. |
 
-These enrich the analysis only when relevant. Derived columns are not independent new information, and the course's recommended number of variables does not justify arbitrary padding.
+## Prepared fields
+
+The [preparation notebook](../notebooks/01_state_preparation.ipynb) retains all
+source rows and values and adds four fields. National groups are `sex–year`;
+state groups are `state–sex–year`.
+
+| Field | Definition |
+|---|---|
+| `decade` | Birth year rounded down to the decade; the 2020s are incomplete. |
+| `name_length` | Number of characters in the published spelling. |
+| `published_share` | Count divided by the sum of published counts in the group. |
+| `rank` | Descending count within the group, with alphabetical tie-breaking. |
+
+The national table has eight columns and the state table nine. These derived
+fields serve the analysis; they are not independent source information.
+
+## Analysis measures
+
+The [EDA notebook](../notebooks/02_state_eda.ipynb) uses both prepared tables.
+
+| Measure | Definition |
+|---|---|
+| Top-ten concentration | Sum of the ten largest counts divided by the state–sex–year published total. |
+| Relative popularity | National published share divided by the name–sex series' observed peak share. |
+| Years near peak | Number of observed years at or above half the peak share; periods need not be consecutive. |
+| Final-letter share | Published counts for a selected final letter divided by the national sex–year total. |
+| State divergence | Jensen–Shannon divergence from pooled other states, conditional on names published in both; compared with a simulated publication-threshold benchmark. |
+| Name over-representation | A name's state share divided by its pooled other-state share, within sex, over 2016–2025. |
+| Female share | `F / (F + M)`; absent annual counts carry 0–4 bounds under the publication-threshold assumption. |
+
+Name–sex shifts compare a name's first complete decade with at least 1,000
+published counts, no later than the 1990s, with 2016–2025 (also at least
+1,000). Classification requires the full female-share interval to move
+from below 30% to above 70%, or the reverse. This is a selected common-name
+cohort, not all names. The report and notebook specify each analysis filter.
+
+## Preparation and outputs
+
+The preparation notebook displays missing values, duplicate keys, recorded-sex
+categories, count ranges and observed coverage. The data contain 292 national
+sex–year groups and 11,832 state–sex–year groups. The 655 national and 1,811
+state placeholder-like records are retained because their labels alone do
+not establish errors.
+
+Prepared tables are saved as `data/processed/national_names.csv.gz` and
+`data/processed/state_names.csv.gz`.
+The report's `tables/national_state_coverage.csv` compares published totals
+for the 232 shared sex–year groups. Its ratio is not population coverage.
+
+## Interpretation and source limits
+
+- An absent name record may be suppressed or unrecorded. A 0–4 interval models
+  the publication threshold; it does not recover records missing for other reasons.
+- Shares use published counts, not all births. National and state tables overlap,
+  so their counts must not be added together.
+- Early coverage is incomplete. Published spellings may contain recording errors;
+  SSA removes spaces and hyphens. Preserve the source spelling.
+- The supplied national README describes records as of 1 March 2026. Original
+  archive provenance and alignment of the national/state releases remain
+  unconfirmed.
+
+See the [SSA publication limits](https://www.ssa.gov/oact/babynames/limits.html)
+and [data qualifications](https://www.ssa.gov/oact/babynames/background.html).

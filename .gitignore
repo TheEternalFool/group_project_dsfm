@@ -20,7 +20,6 @@ Thumbs.db
 # Keep the data layout and documentation, not the datasets
 /data/**
 !/data/**/
-!/data/README.md
 !/data/**/.gitkeep
 
 # Generated report sites and rendering caches
