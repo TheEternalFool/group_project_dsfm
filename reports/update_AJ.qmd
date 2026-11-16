@@ -1,7 +1,20 @@
 ---
 title: "What's in a Name?"
 subtitle: "Time, Place and Recorded Sex in American First Names"
-author: "Group AJ · HEC Lausanne"
+author:
+  - name: "Komivi Assiamua"
+    affiliations:
+      - id: unil
+        name: "Group AJ · HEC Lausanne"
+  - name: "Selorm Fiadonu"
+    affiliations:
+      - ref: unil
+  - name: "Carles González Saña"
+    affiliations:
+      - ref: unil
+  - name: "Héctor Honrubia Gonzalez"
+    affiliations:
+      - ref: unil
 date: "2026-11-16"
 date-format: "D MMMM YYYY"
 toc-location: right
@@ -66,6 +79,18 @@ organise the analysis.
 
 These questions concern aggregate associations. A name cannot establish an
 individual's sex or gender, and the data do not identify why parents chose it.
+
+The third question builds on two studies cited in our proposal.
+[Lieberson, Dumais and Baumann (2000)](https://doi.org/10.1086/210431)
+emphasise asymmetric changes in androgynous names, particularly declining
+male use as female use increases.
+[Seguin, Julien and Zhang (2021)](https://doi.org/10.1016/j.poetic.2020.101501)
+emphasise the persistence of many androgynous names and the role of changing
+spelling preferences. These perspectives motivate examining both the
+stability of name–sex associations and the direction of substantial shifts.
+Our threshold-based comparison of historically common names addresses
+related patterns; it is not a direct replication of either study's
+population or definition of androgyny.
 
 ## Analytical scope
 
@@ -361,50 +386,88 @@ names can be compared. The state benchmark is conditional on published data;
 it does not isolate cultural effects. None of the analyses establishes
 individual characteristics from a name or the causes of parental choices.
 
-## Next analytical steps
+## Proposed methods and validation
 
-The following models have not yet been fitted:
+The following methods are planned; no clustering or predictive model has yet
+been fitted.
 
-- **Trajectory clustering:** group national name–sex series by normalised
-  popularity shape over common windows. Compare cluster solutions across
-  periods and minimum-count rules, accounting for truncated trajectories.
-- **Spelling-based regression:** use character n-grams to predict a name's
-  count-weighted mean birth year. Compare held-out mean absolute error with
-  a training-mean baseline and a final-letter baseline. Keep each spelling
-  in one split; the target is an aggregate popularity period.
-- **State similarity:** build state–decade name profiles and compare states
-  on a common vocabulary. Pairwise profile distances are needed for
-  clustering; a state's divergence from a pooled reference is not itself
-  a pairwise distance matrix. Compare results across vocabulary and
-  suppression choices before interpreting regional groupings.
-- **Name–sex shift prediction:** define outcomes over fixed future windows
-  and use only earlier spelling and trajectory features. Compare
-  precision–recall performance with majority-class and persistence
-  baselines; accuracy alone can be misleading when shifts are rare.
+- **Popularity trajectories: k-means clustering.** Represent each national
+  name–sex series by an equal-length vector of annual published popularity
+  shares over a common observation window, normalised by its maximum share.
+  Apply k-means, which minimises within-cluster squared Euclidean distances,
+  to identify recurring trajectory shapes. Compare candidate numbers of
+  clusters using silhouette scores, repeated initialisations and stability
+  across periods and minimum-count rules. Truncated trajectories and
+  suppressed counts require explicit treatment; absent records will not
+  automatically be interpreted as zero.
+- **Spelling and popularity period: ridge regression.** Use character
+  n-grams to predict the count-weighted mean birth year of each name–sex
+  series. Ridge regression applies an L2 penalty to limit overfitting with
+  many correlated spelling features. Select the penalty through
+  cross-validation within the training set and evaluate held-out mean
+  absolute error, in years, against training-mean and final-letter baselines.
+  Keep all observations with the same spelling in one partition. The target
+  describes an aggregate popularity period, not an individual's age.
+- **State profiles: hierarchical clustering.** Within each decade and
+  recorded-sex category, construct state naming distributions on one common
+  vocabulary. Apply average-linkage hierarchical clustering to pairwise
+  Jensen–Shannon distances, the square root of Jensen–Shannon divergence.
+  Assess whether state groupings persist across decades and alternative
+  vocabulary and suppression treatments. Divergence from a pooled reference
+  alone cannot supply the required pairwise distance matrix.
+- **Name–sex shifts: logistic regression.** Define a binary outcome for a
+  transition from below 30% to above 70% female share, or the reverse,
+  between fixed historical and subsequent windows. Use L2-penalised logistic
+  regression with a small set of earlier spelling, popularity and
+  female-share features. Eligibility will use information available at the
+  prediction date; suppression-ambiguous future outcomes will be reported
+  separately. Evaluate on later periods using precision–recall curves,
+  average precision and counts of observed and correctly identified shifts,
+  alongside no-shift and training-prevalence baselines.
 
-Preprocessing and feature selection will be fitted on training data only.
-Name-grouped splits address unseen spellings; forward-time splits address
-future changes. These are separate prediction questions. Period, count and
-share thresholds will be varied to assess whether conclusions depend on the
-chosen definitions.
+For prediction, feature extraction, preprocessing and penalty selection will
+use training data only. Name-grouped splits test generalisation to unseen
+spellings; chronological splits test prediction of future changes. Training
+outcome windows must end before the evaluation period. Period, count and
+share thresholds will be varied to assess sensitivity to these definitions.
+The 28 male-to-female and two reverse endpoint shifts in the EDA do not
+establish sufficient events for prospective modelling. If fixed-window
+samples contain too few shifts for meaningful training and evaluation,
+this part will remain descriptive.
 
-# Conclusion
+# Conclusion and Next Steps
 
-The national and state datasets show that American naming preferences vary
-across generations, places and recorded-sex categories. Popular-name cohorts
-have shorter observed high-popularity periods in later decades, and final
-letters carry information about popularity era. State profiles show
-convergence under the chosen measure while retaining distinctive local
-names. Among historically common names that remain common, large shifts
-are more frequent toward female use.
+Data preparation and exploratory analysis are complete for the national and
+state datasets. The descriptive results address all three research questions:
+later peak cohorts have shorter observed high-popularity periods, state
+profiles become more similar under the chosen divergence measure, and large
+name–sex shifts are more frequent toward female use in the selected cohort.
+These findings remain subject to suppression, historical coverage and
+sample-selection limitations. The proposed models have not yet been fitted.
 
-The results answer the descriptive parts of the research questions and
-provide a basis for the next stage. Clustering and prediction will determine
-whether these patterns form reproducible groups and whether earlier
-information predicts outcomes beyond simple baselines.
+The next steps are:
+
+1. **Prepare modelling datasets.** Define common trajectory windows,
+   character n-gram features and state–decade profiles; fix prediction
+   windows, eligibility rules and training/test partitions before fitting.
+2. **Fit and evaluate the proposed models.** Apply k-means, ridge regression
+   and hierarchical clustering as specified in Section 4.2. Fit logistic
+   regression only if fixed-window samples contain enough shifts for
+   meaningful training and evaluation. Compare predictive performance with
+   the stated baselines on held-out names or later periods, as appropriate.
+3. **Check robustness and complete the final report.** Vary observation
+   windows, count/share thresholds and vocabulary choices; assess cluster
+   stability and identify which conclusions persist. Integrate the results,
+   limitations and reproducible code into the final Quarto report.
 
 # References {.unnumbered}
 
+- Lieberson, S., Dumais, S., & Baumann, S. (2000).
+  [The instability of androgynous names: The symbolic maintenance of gender boundaries](https://doi.org/10.1086/210431).
+  *American Journal of Sociology, 105*(5), 1249–1287.
+- Seguin, C., Julien, C., & Zhang, Y. (2021).
+  [The stability of androgynous names: Dynamics of gendered naming practices in the United States 1880–2016](https://doi.org/10.1016/j.poetic.2020.101501).
+  *Poetics, 85*, 101501.
 - US Social Security Administration.
   [Beyond the Top 1000 Names](https://www.ssa.gov/oact/babynames/limits.html).
   Publication restrictions and links to official downloadable archives.

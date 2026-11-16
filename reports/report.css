@@ -32,13 +32,30 @@ strong { font-weight: 700; }
   margin: 0 auto;
   max-width: 38rem;
 }
-#title-block-header .quarto-title-meta {
+#title-block-header.quarto-title-block.default .quarto-title-meta {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: .35rem 1.3rem;
   margin: 1rem 0 1.6rem;
   font-size: .85rem;
+}
+/* List coauthors together and show their shared affiliation once. */
+#title-block-header.quarto-title-block.default .quarto-title-meta-author {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .25rem 1.2rem;
+  margin: 1rem 0 0;
+  text-align: center;
+}
+#title-block-header .quarto-title-meta-author .quarto-title-meta-contents:has(.affiliation) {
+  display: none;
+}
+#title-block-header .quarto-title-meta-author .quarto-title-meta-contents:last-child {
+  display: block;
+  flex-basis: 100%;
+  margin-top: .3rem;
 }
 #title-block-header .quarto-title-meta-heading { display: none; }
 #title-block-header .quarto-title-meta-contents { font-size: .85rem; }

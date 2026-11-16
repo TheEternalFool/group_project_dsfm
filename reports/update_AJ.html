@@ -6,7 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Group AJ · HEC Lausanne">
+<meta name="author" content="Komivi Assiamua">
+<meta name="author" content="Selorm Fiadonu">
+<meta name="author" content="Carles González Saña">
+<meta name="author" content="Héctor Honrubia Gonzalez">
 <meta name="dcterms.date" content="2026-11-16">
 
 <title>What’s in a Name? | Group AJ Project Update</title>
@@ -2192,13 +2195,30 @@ color: #333;
 margin: 0 auto;
 max-width: 38rem;
 }
-#title-block-header .quarto-title-meta {
+#title-block-header.quarto-title-block.default .quarto-title-meta {
 display: flex;
 justify-content: center;
 flex-wrap: wrap;
 gap: .35rem 1.3rem;
 margin: 1rem 0 1.6rem;
 font-size: .85rem;
+}
+
+#title-block-header.quarto-title-block.default .quarto-title-meta-author {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: .25rem 1.2rem;
+margin: 1rem 0 0;
+text-align: center;
+}
+#title-block-header .quarto-title-meta-author .quarto-title-meta-contents:has(.affiliation) {
+display: none;
+}
+#title-block-header .quarto-title-meta-author .quarto-title-meta-contents:last-child {
+display: block;
+flex-basis: 100%;
+margin-top: .3rem;
 }
 #title-block-header .quarto-title-meta-heading { display: none; }
 #title-block-header .quarto-title-meta-contents { font-size: .85rem; }
@@ -2278,7 +2298,7 @@ li { break-inside: avoid; }
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">2</span> Data</a></li>
   <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><span class="header-section-number">3</span> Exploratory Data Analysis (EDA)</a></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">4</span> Analysis</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
+  <li><a href="#conclusion-and-next-steps" id="toc-conclusion-and-next-steps" class="nav-link" data-scroll-target="#conclusion-and-next-steps"><span class="header-section-number">5</span> Conclusion and Next Steps</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
   </ul>
@@ -2293,16 +2313,47 @@ li { break-inside: avoid; }
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+
+    <div class="quarto-title-meta-contents">
+    <p class="author">Komivi Assiamua </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Group AJ · HEC Lausanne
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Selorm Fiadonu </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Group AJ · HEC Lausanne
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Carles González Saña </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Group AJ · HEC Lausanne
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Héctor Honrubia Gonzalez </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Group AJ · HEC Lausanne
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Group AJ · HEC Lausanne </p>
-          </div>
-  </div>
-    
+
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
@@ -2335,6 +2386,7 @@ li { break-inside: avoid; }
 <li>How stable are name–sex associations, and can earlier spelling and popularity information help anticipate later changes?</li>
 </ol>
 <p>These questions concern aggregate associations. A name cannot establish an individual’s sex or gender, and the data do not identify why parents chose it.</p>
+<p>The third question builds on two studies cited in our proposal. <a href="https://doi.org/10.1086/210431">Lieberson, Dumais and Baumann (2000)</a> emphasise asymmetric changes in androgynous names, particularly declining male use as female use increases. <a href="https://doi.org/10.1016/j.poetic.2020.101501">Seguin, Julien and Zhang (2021)</a> emphasise the persistence of many androgynous names and the role of changing spelling preferences. These perspectives motivate examining both the stability of name–sex associations and the direction of substantial shifts. Our threshold-based comparison of historically common names addresses related patterns; it is not a direct replication of either study’s population or definition of androgyny.</p>
 </section>
 <section id="analytical-scope" class="level2" data-number="1.2">
 <h2 data-number="1.2" data-anchor-id="analytical-scope"><span class="header-section-number">1.2</span> Analytical scope</h2>
@@ -2615,26 +2667,33 @@ Figure 7: Annual female-share trajectories for the six largest male-to-female a
 <p>The completed analysis gives a first answer to each question. For RQ1, later peak cohorts spend fewer observed years near peak popularity, and spelling patterns change across eras. For RQ2, shared-name distributions become more similar over much of the twentieth century while retaining local relative preferences. For RQ3, the selected common-name cohort shows a marked directional imbalance in large association shifts.</p>
 <p>These findings are descriptive. Peak-based selection, continued-popularity requirements, suppression and changing historical coverage all affect which names can be compared. The state benchmark is conditional on published data; it does not isolate cultural effects. None of the analyses establishes individual characteristics from a name or the causes of parental choices.</p>
 </section>
-<section id="next-analytical-steps" class="level2" data-number="4.2">
-<h2 data-number="4.2" data-anchor-id="next-analytical-steps"><span class="header-section-number">4.2</span> Next analytical steps</h2>
-<p>The following models have not yet been fitted:</p>
+<section id="proposed-methods-and-validation" class="level2" data-number="4.2">
+<h2 data-number="4.2" data-anchor-id="proposed-methods-and-validation"><span class="header-section-number">4.2</span> Proposed methods and validation</h2>
+<p>The following methods are planned; no clustering or predictive model has yet been fitted.</p>
 <ul>
-<li><strong>Trajectory clustering:</strong> group national name–sex series by normalised popularity shape over common windows. Compare cluster solutions across periods and minimum-count rules, accounting for truncated trajectories.</li>
-<li><strong>Spelling-based regression:</strong> use character n-grams to predict a name’s count-weighted mean birth year. Compare held-out mean absolute error with a training-mean baseline and a final-letter baseline. Keep each spelling in one split; the target is an aggregate popularity period.</li>
-<li><strong>State similarity:</strong> build state–decade name profiles and compare states on a common vocabulary. Pairwise profile distances are needed for clustering; a state’s divergence from a pooled reference is not itself a pairwise distance matrix. Compare results across vocabulary and suppression choices before interpreting regional groupings.</li>
-<li><strong>Name–sex shift prediction:</strong> define outcomes over fixed future windows and use only earlier spelling and trajectory features. Compare precision–recall performance with majority-class and persistence baselines; accuracy alone can be misleading when shifts are rare.</li>
+<li><strong>Popularity trajectories: k-means clustering.</strong> Represent each national name–sex series by an equal-length vector of annual published popularity shares over a common observation window, normalised by its maximum share. Apply k-means, which minimises within-cluster squared Euclidean distances, to identify recurring trajectory shapes. Compare candidate numbers of clusters using silhouette scores, repeated initialisations and stability across periods and minimum-count rules. Truncated trajectories and suppressed counts require explicit treatment; absent records will not automatically be interpreted as zero.</li>
+<li><strong>Spelling and popularity period: ridge regression.</strong> Use character n-grams to predict the count-weighted mean birth year of each name–sex series. Ridge regression applies an L2 penalty to limit overfitting with many correlated spelling features. Select the penalty through cross-validation within the training set and evaluate held-out mean absolute error, in years, against training-mean and final-letter baselines. Keep all observations with the same spelling in one partition. The target describes an aggregate popularity period, not an individual’s age.</li>
+<li><strong>State profiles: hierarchical clustering.</strong> Within each decade and recorded-sex category, construct state naming distributions on one common vocabulary. Apply average-linkage hierarchical clustering to pairwise Jensen–Shannon distances, the square root of Jensen–Shannon divergence. Assess whether state groupings persist across decades and alternative vocabulary and suppression treatments. Divergence from a pooled reference alone cannot supply the required pairwise distance matrix.</li>
+<li><strong>Name–sex shifts: logistic regression.</strong> Define a binary outcome for a transition from below 30% to above 70% female share, or the reverse, between fixed historical and subsequent windows. Use L2-penalised logistic regression with a small set of earlier spelling, popularity and female-share features. Eligibility will use information available at the prediction date; suppression-ambiguous future outcomes will be reported separately. Evaluate on later periods using precision–recall curves, average precision and counts of observed and correctly identified shifts, alongside no-shift and training-prevalence baselines.</li>
 </ul>
-<p>Preprocessing and feature selection will be fitted on training data only. Name-grouped splits address unseen spellings; forward-time splits address future changes. These are separate prediction questions. Period, count and share thresholds will be varied to assess whether conclusions depend on the chosen definitions.</p>
+<p>For prediction, feature extraction, preprocessing and penalty selection will use training data only. Name-grouped splits test generalisation to unseen spellings; chronological splits test prediction of future changes. Training outcome windows must end before the evaluation period. Period, count and share thresholds will be varied to assess sensitivity to these definitions. The 28 male-to-female and two reverse endpoint shifts in the EDA do not establish sufficient events for prospective modelling. If fixed-window samples contain too few shifts for meaningful training and evaluation, this part will remain descriptive.</p>
 </section>
 </section>
-<section id="conclusion" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
-<p>The national and state datasets show that American naming preferences vary across generations, places and recorded-sex categories. Popular-name cohorts have shorter observed high-popularity periods in later decades, and final letters carry information about popularity era. State profiles show convergence under the chosen measure while retaining distinctive local names. Among historically common names that remain common, large shifts are more frequent toward female use.</p>
-<p>The results answer the descriptive parts of the research questions and provide a basis for the next stage. Clustering and prediction will determine whether these patterns form reproducible groups and whether earlier information predicts outcomes beyond simple baselines.</p>
+<section id="conclusion-and-next-steps" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conclusion and Next Steps</h1>
+<p>Data preparation and exploratory analysis are complete for the national and state datasets. The descriptive results address all three research questions: later peak cohorts have shorter observed high-popularity periods, state profiles become more similar under the chosen divergence measure, and large name–sex shifts are more frequent toward female use in the selected cohort. These findings remain subject to suppression, historical coverage and sample-selection limitations. The proposed models have not yet been fitted.</p>
+<p>The next steps are:</p>
+<ol type="1">
+<li><strong>Prepare modelling datasets.</strong> Define common trajectory windows, character n-gram features and state–decade profiles; fix prediction windows, eligibility rules and training/test partitions before fitting.</li>
+<li><strong>Fit and evaluate the proposed models.</strong> Apply k-means, ridge regression and hierarchical clustering as specified in Section 4.2. Fit logistic regression only if fixed-window samples contain enough shifts for meaningful training and evaluation. Compare predictive performance with the stated baselines on held-out names or later periods, as appropriate.</li>
+<li><strong>Check robustness and complete the final report.</strong> Vary observation windows, count/share thresholds and vocabulary choices; assess cluster stability and identify which conclusions persist. Integrate the results, limitations and reproducible code into the final Quarto report.</li>
+</ol>
 </section>
 <section id="references" class="level1 unnumbered">
 <h1 class="unnumbered">References</h1>
 <ul>
+<li>Lieberson, S., Dumais, S., &amp; Baumann, S. (2000). <a href="https://doi.org/10.1086/210431">The instability of androgynous names: The symbolic maintenance of gender boundaries</a>. <em>American Journal of Sociology, 105</em>(5), 1249–1287.</li>
+<li>Seguin, C., Julien, C., &amp; Zhang, Y. (2021). <a href="https://doi.org/10.1016/j.poetic.2020.101501">The stability of androgynous names: Dynamics of gendered naming practices in the United States 1880–2016</a>. <em>Poetics, 85</em>, 101501.</li>
 <li>US Social Security Administration. <a href="https://www.ssa.gov/oact/babynames/limits.html">Beyond the Top 1000 Names</a>. Publication restrictions and links to official downloadable archives. Accessed 16 November 2026.</li>
 <li>US Social Security Administration. <a href="https://www.ssa.gov/oact/babynames/background.html">Background information for popular names</a>. Source population, coverage and data qualifications. Accessed 16 November 2026.</li>
 <li>US Social Security Administration. <em>National Data on the relative frequency of given names in the population of U.S. births where the individual has a Social Security Number</em>. National dataset documentation (<code>NationalReadMe.pdf</code>), records as of 1 March 2026.</li>

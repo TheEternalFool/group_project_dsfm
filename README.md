@@ -4,6 +4,9 @@
 
 Data Science Methods for Management · HEC Lausanne · Group AJ
 
+**Group members:** Komivi Assiamua, Selorm Fiadonu, Carles González Saña,
+Héctor Honrubia Gonzalez.
+
 We study how American first names vary across time, states and recorded sex.
 The research questions concern popularity life cycles, geographical differences
 and changes in name–sex associations.
